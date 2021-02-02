@@ -1,7 +1,7 @@
-#!/usr/bin/env python2
+#!/usr/bin/env python3
 import sys
 import os
-import subprocess
+import subprocess # commands depreciado em python3
 import filecmp
 from shutil import copyfile, rmtree
 from os.path import join
@@ -24,11 +24,11 @@ def main():
     #This script copies and compile a given app
     MEMPHIS_PATH = os.getenv("MEMPHIS_PATH", 0)
     MEMPHIS_HOME = os.getenv("MEMPHIS_HOME", 0)
-    print "\n"
+    print ("\n")
     
      #Test if testcase file MEMPHIS_PATH is valid
     if MEMPHIS_HOME == 0:
-        print "\nWARNING: MEMPHIS_HOME not defined, using as default testcase dir MEMPHIS_PATH/testcases\n"
+        print ("\nWARNING: MEMPHIS_HOME not defined, using as default testcase dir MEMPHIS_PATH/testcases\n")
         MEMPHIS_HOME = MEMPHIS_PATH + "/testcases"
 
     INPUT_TESTCASE_FILE_PATH = sys.argv[1]
@@ -88,10 +88,10 @@ def main():
     exit_status = os.system("make all -C "+TESTCASE_PATH)
     
     if exit_status == 0:
-        print "\n\nMemphis platform generated and compiled successfully at:\n-"+TESTCASE_PATH+"\n"
+        print ("\n\nMemphis platform generated and compiled successfully at:\n-"+TESTCASE_PATH+"\n")
         sys.exit(0)
     else:
-        print "\n*** ERROR: Memphis compilation not completed, process stopped!!!\n"
+        print ("\n*** ERROR: Memphis compilation not completed, process stopped!!!\n")
         sys.exit(1)
 # ----------------------------------------- FUNCTIONS ---------------------------------------------
 

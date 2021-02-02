@@ -1,8 +1,9 @@
-#!/usr/bin/env python2
+#!/usr/bin/env python3
 import sys
 import os
 import filecmp
-import commands
+#import commands
+import subprocess
 from shutil import copyfile, rmtree
 from math import ceil
 
@@ -42,11 +43,11 @@ def create_cluster_list(x_mpsoc_dim, y_mpsoc_dim, x_cluster_dim, y_cluster_dim, 
     if  ( x_mpsoc_dim % x_cluster_dim ) != 0 or (y_mpsoc_dim % y_cluster_dim ) != 0:
         sys.exit('Error in YAML noc_dimension OR cluster_dimension - you must provide a compatible dimension')
         
-    x_clusters_number = x_mpsoc_dim / x_cluster_dim;
-    y_clusters_number = y_mpsoc_dim / y_cluster_dim;
+    x_clusters_number = int(x_mpsoc_dim / x_cluster_dim) # truncamento, ou deveria ser arredondamento?
+    y_clusters_number = int(y_mpsoc_dim / y_cluster_dim)
     
     cluster_list = []
-    
+    print (f"CLUSTERNUMBER{y_clusters_number}")
     for y in range(0, y_clusters_number):
         for x in range(0, x_clusters_number):
             
@@ -103,7 +104,8 @@ def writes_file_into_testcase(file_path, file_lines):
 #with the page_size. 
 def check_mem_size(file_path, mem_size_KB):
     
-    program_memory_size = int (commands.getoutput("mips-elf-size "+file_path+" | tail -1 | sed 's/ //g' | sed 's/\t/:/g' | cut -d':' -f4"))
+    #program_memory_size = int (commands.getoutput("mips-elf-size "+file_path+" | tail -1 | sed 's/ //g' | sed 's/\t/:/g' | cut -d':' -f4")) # python2
+    program_memory_size = int (subprocess.getoutput("mips-elf-size "+file_path+" | tail -1 | sed 's/ //g' | sed 's/\t/:/g' | cut -d':' -f4")) #python3
     
     file_size_KB = program_memory_size / 1024.0
     

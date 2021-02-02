@@ -1,6 +1,6 @@
-#!/usr/bin/env python2
+#!/usr/bin/env python3
 
-print"""
+print ("""
  
   __  __ _____ __  __ ____  _   _ ___ ____    _   ____  
  |  \/  | ____|  \/  |  _ \| | | |_ _/ ___|  / | |___ \ 
@@ -13,6 +13,6 @@ print"""
 This project was developed by GAPH Group - PUCRS, Porto Alegre, Brazil
 contact: fernando.moraes@pucrs.br                                                                             
                             
-"""
+""")
 
 #fONTE Standard

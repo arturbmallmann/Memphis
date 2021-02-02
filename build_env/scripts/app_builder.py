@@ -1,10 +1,13 @@
-#!/usr/bin/env python2
+#!/usr/bin/env python3
 import sys
 import math
 import os
-import commands
-import Tkinter as tkinter
-import tkMessageBox as mbox
+#import commands
+import subprocess
+#import Tkinter as tkinter
+import tkinter
+#import tkMessageBox as mbox
+from tkinter import messagebox as mbox
 from yaml_intf import *
 from build_utils import *
 
@@ -20,7 +23,7 @@ def main():
     if MEMPHIS_PATH == 0:
         sys.exit("ENV PATH ERROR: MEMPHIS_PATH not defined")
     if MEMPHIS_HOME == 0:
-        print "WARNING: MEMPHIS_HOME not defined, using as default testcase dir MEMPHIS_PATH/testcases"
+        print ("WARNING: MEMPHIS_HOME not defined, using as default testcase dir MEMPHIS_PATH/testcases")
         MEMPHIS_HOME = MEMPHIS_PATH + "/testcases"
         
     INPUT_TESTCASE_FILE_PATH    = sys.argv[1]
@@ -47,7 +50,7 @@ def main():
         elif os.path.exists(APP_PATH) == True:
             source_app_path = APP_PATH
         else:
-            print "\nWARNING: App path not found at:\n-" + APP_PATH + "\nGetting app path from MEMPHIS_PATH="+source_app_path
+            print ("\nWARNING: App path not found at:\n-" + APP_PATH + "\nGetting app path from MEMPHIS_PATH="+source_app_path)
     except:
         sys.exit("\n\nERROR: Invalid application name passed as 2nd argument: "+APP_NAME+"\nThe application was not found either in:\n- " + APP_PATH + "\n- "+ source_app_path)
 
@@ -112,7 +115,7 @@ def generate_repository(yaml_r, testcase_dir, app_path, app_name):
     
     TASK_DESCRIPTOR_SIZE = 6 #6 is number of lines to represent a task description 
 
-    print "\n***************** Task page size report ***********************"
+    print ("\n***************** Task page size report ***********************")
     
     task_name_list = get_app_task_name_list(testcase_dir, app_name)
     
@@ -172,9 +175,9 @@ def generate_repository(yaml_r, testcase_dir, app_path, app_name):
         task_txt_file = open(txt_source_file, "r")
         
         for line in task_txt_file:
-			file_line = line[0:len(line)-1] # removes the \n from end of file
-			repo_lines.append( RepoLine(file_line  , comment) )
-			comment = ""
+            file_line = line[0:len(line)-1] # removes the \n from end of file
+            repo_lines.append( RepoLine(file_line  , comment) )
+            comment = ""
                 
         task_txt_file.close()
     
@@ -182,12 +185,12 @@ def generate_repository(yaml_r, testcase_dir, app_path, app_name):
     generate_app_repository_file(app_name, app_path, repo_lines, get_model_description(yaml_r))
     
     ################Finally, generates the repository file (main and debug files) ##########################
-    print "***************** End task page size report ********************\n"
+    print ("***************** End task page size report ********************\n")
 
 
 #Receives a int, convert to string and fills to a 32 bits word
-def toX(input):
-    hex_string = "%x" % input
+def toX(inp):
+    hex_string = "%x" % int(inp)
     #http://stackoverflow.com/questions/339007/nicest-way-to-pad-zeroes-to-string
     return hex_string.zfill(8) # 8 is the lenght of chars to represent 32 bits (repo word) in hexa
 
@@ -230,8 +233,8 @@ def get_task_DATA_size(app_path, task_name):
     
     #This command gets the bss data and size of the binary file
     #https://www.quora.com/What-is-a-convenient-way-to-execute-a-shell-command-in-Python-and-retrieve-its-output
-    data_size = int (commands.getoutput("mips-elf-size "+source_file+" | tail -1 | sed 's/ //g' | sed 's/\t/:/g' | cut -d':' -f2"))
-    
+    #data_size = int (commands.getoutput("mips-elf-size "+source_file+" | tail -1 | sed 's/ //g' | sed 's/\t/:/g' | cut -d':' -f2"))
+    data_size = int (subprocess.getoutput("mips-elf-size "+source_file+" | tail -1 | sed 's/ //g' | sed 's/\t/:/g' | cut -d':' -f2"))
     while data_size % 4 != 0:
         data_size = data_size + 1
         
@@ -245,7 +248,8 @@ def get_task_BSS_size(app_path, task_name):
     
     #This command gets the bss data and size of the binary file
     #https://www.quora.com/What-is-a-convenient-way-to-execute-a-shell-command-in-Python-and-retrieve-its-output
-    bss_size = int(commands.getoutput("mips-elf-size "+source_file+" | tail -1 | sed 's/ //g' | sed 's/\t/:/g' | cut -d':' -f3"))
+    #bss_size = int(commands.getoutput("mips-elf-size "+source_file+" | tail -1 | sed 's/ //g' | sed 's/\t/:/g' | cut -d':' -f3"))
+    bss_size = int(subprocess.getoutput("mips-elf-size "+source_file+" | tail -1 | sed 's/ //g' | sed 's/\t/:/g' | cut -d':' -f3"))
     
     while bss_size % 4 != 0:
         bss_size = bss_size + 1

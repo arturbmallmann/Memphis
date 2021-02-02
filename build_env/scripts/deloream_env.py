@@ -1,4 +1,4 @@
-#!/usr/bin/env python2
+#!/usr/bin/env python3
 import sys
 import os
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__))+"/scripts")
@@ -20,7 +20,9 @@ def generate_deloream_env(testcase_path, yaml_testcase_r, scenario_path, yaml_sc
     os.mkdir(debug_path)
     
     #Create traffic_router file inside debug directory
-    with open(os.path.join(dir, debug_path+"/traffic_router.txt"), 'w'):
+    #print(f"join: {dir()} , {debug_path}")
+    #with open(os.path.join(dir, debug_path+"/traffic_router.txt"), 'w'):
+    with open(debug_path+"/traffic_router.txt", 'w'):
         pass
     
     os.mkdir(debug_path+"/pipe")

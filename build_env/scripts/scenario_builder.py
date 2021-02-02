@@ -1,8 +1,8 @@
-#!/usr/bin/env python2
+#!/usr/bin/env python3
 import sys
 import math
 import os
-import commands
+#import commands
 from shutil import copyfile
 from deloream_env import generate_deloream_env
 from yaml_intf import *
@@ -21,10 +21,10 @@ def main():
     INPUT_SCENARIO_FILE_PATH    = sys.argv[2]
     SIM_TIME                    = sys.argv[3]
     
-    print ""
+    print ("")
      #Test if testcase file MEMPHIS_PATH is valid
     if MEMPHIS_HOME == 0:
-        print "\nWARNING: MEMPHIS_HOME not defined, using as default testcase dir MEMPHIS_PATH/testcases\n"
+        print ("\nWARNING: MEMPHIS_HOME not defined, using as default testcase dir MEMPHIS_PATH/testcases\n")
         MEMPHIS_HOME = MEMPHIS_PATH + "/testcases"
         
     path_list = INPUT_TESTCASE_FILE_PATH.split("/") #The testcase path can have severals '/' into its composition
@@ -86,7 +86,7 @@ def main():
     #Calls the deloream_env.py to generate all necessary debugging dir and files
     generate_deloream_env(TESTCASE_PATH, yaml_testcase_r, SCENARIO_PATH, yaml_scenario_r)
     
-    print SCENARIO_NAME+" successfully generated!"
+    print (SCENARIO_NAME+" successfully generated!")
     
 
 #Receives a int, convert to string and fills to a 32 bits word
@@ -111,9 +111,9 @@ def check_app_exist(app_name_list, testcase_path):
        
     app_not_found_list = list(set(app_not_found_list))#Remove redundant instance
     if app_not_found_list:
-        print "\nERROR: The following application(s) were not compiled yet (use memphis-app to compile):"
+        print ("\nERROR: The following application(s) were not compiled yet (use memphis-app to compile):")
         for app_name in app_not_found_list:
-            print "- " + app_name
+            print ("- " + app_name)
     
         sys.exit(1)
 

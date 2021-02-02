@@ -1,4 +1,4 @@
-#!/usr/bin/env python2
+#!/usr/bin/env python3
 import yaml
 import sys
 from operator import attrgetter
@@ -149,7 +149,7 @@ def get_app_info_list(yaml_reader, testcase_path):
         #Checks for typing error in the task name
         for static_task in static_mapping_tasks:
             if static_task not in app_task_list: 
-                print "[WARNING]: Static task name ["+static_task+"] does not belong to application [" + app_name+ "], it will be ignored in static mapping\n"
+                print ("[WARNING]: Static task name ["+static_task+"] does not belong to application [" + app_name+ "], it will be ignored in static mapping\n")
         
         static_task_list = []
         #Walk over all tasks of app

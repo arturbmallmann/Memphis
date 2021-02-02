@@ -1,4 +1,4 @@
-#!/usr/bin/env python2
+#!/usr/bin/env python3
 import sys
 import math
 import os
@@ -23,12 +23,12 @@ def main():
     if exit_status != 0:
         sys.exit("\nError compiling kernel source code\n");
         
-    print "\n***************** kernel page size report ***********************"
+    print ("\n***************** kernel page size report ***********************")
     check_mem_size("software/kernel_slave.elf", get_page_size_KB(yaml_r) )
     
     check_mem_size("software/kernel_master.elf", get_memory_size_KB(yaml_r) )
         
-    print "***************** end kernel page size report *********************\n"
+    print ("***************** end kernel page size report *********************\n")
     
     generate_memory( yaml_r )
 
